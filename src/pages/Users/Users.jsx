@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import UserItem from "../../components/UserItem/UserItem";
 import { useSelector, useDispatch } from "react-redux";
+import { getUsersFromServer } from "../../Redux/slices/usersSlice";
 
 import "./Users.css";
-import { getUsersFromServer } from "../../Redux/slices/usersSlice";
 
 export default function Users() {
 

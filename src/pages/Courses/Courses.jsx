@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./Courses.css";
 import CourseBox from "../../components/CourseBox/CourseBox";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCoursesFromServer } from "../../Redux/slices/coursesSlice";
 
 export default function Courses() {
+
+  const dispatch = useDispatch()
+  const courses = useSelector(state => state.courses)
+
+  useEffect(()=>{
+    dispatch(getCoursesFromServer("https://redux-cms.iran.liara.run/api/courses"))
+  },[])
+
   return (
     <div className="col-8 content px-0">
       <div className="content__wrapper d-flex flex-column align-content-between">
@@ -38,8 +48,7 @@ export default function Courses() {
 
         <div className="products products-container">
           <div className="products__list products-wrapper">
-            <CourseBox />
-            <CourseBox />
+            {courses.map(course => (<CourseBox key={course._id} {...course}/>))}        
           </div>
         </div>
 
