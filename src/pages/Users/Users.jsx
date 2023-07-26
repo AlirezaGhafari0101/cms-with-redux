@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import UserItem from "../../components/UserItem/UserItem";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./Users.css";
+import { getUsersFromServer } from "../../Redux/slices/usersSlice";
 
 export default function Users() {
+
+  const dispatch = useDispatch()
+  const users = useSelector(state => state.users)
+
+  useEffect(()=>{
+    dispatch(getUsersFromServer("https://redux-cms.iran.liara.run/api/users"))
+  },[])
+
   return (
     <div className="col-8 content px-0">
       <div className="content__wrapper">
@@ -57,9 +67,7 @@ export default function Users() {
 
           <div className="users__list-container">
             <div className="users__list users__list-wrapper">
-              <UserItem />
-              <UserItem />
-              <UserItem />
+              {users.map(user => ( <UserItem key={user._id} {...user}/>))}
             </div>
           </div>
         </div>
