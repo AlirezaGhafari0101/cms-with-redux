@@ -1,6 +1,28 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { removeCourse } from "../../Redux/slices/coursesSlice";
 
-export default function CourseBox({title, price, category, registersCount, discount, desc}) {
+export default function CourseBox({title, price, category, registersCount, discount, desc, _id}) {
+
+  const dispatch = useDispatch()
+
+  const removeCourseHandler = () => {
+    swal({
+      title: "آیا از حذف این دوره مطمئن هستید؟",
+      icon: 'warning',
+      buttons: ['خیر','بله']
+    }).then(result => {
+      if(result){
+        dispatch(removeCourse(_id))
+        swal({
+          title: "دوره با موفقیت حذف شد",
+          icon: 'success',
+          buttons: "حله"
+        })
+      }
+    })
+  }
+
   return (
     <div className="products__item">
       <img
@@ -39,7 +61,7 @@ export default function CourseBox({title, price, category, registersCount, disco
             </div>
           </div>
           <div className="products__btns">
-            <button className="btn btn-danger btn-lg">حذف</button>
+            <button className="btn btn-danger btn-lg" onClick={removeCourseHandler}>حذف</button>
             <button className="btn btn-info btn-lg">ویرایش</button>
           </div>
         </div>

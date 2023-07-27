@@ -1,6 +1,28 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { removeArticle } from "../../Redux/slices/articlesSlice";
 
-export default function ArticleBox({title, category, views, desc}) {
+export default function ArticleBox({title, category, views, desc, _id}) {
+
+  const dispatch = useDispatch()
+
+  const removeArticleHandler = () => {
+    swal({
+      title: "آیا از حذف این مقاله مطمئن هستید؟",
+      icon: 'warning',
+      buttons: ['خیر','بله']
+    }).then(result => {
+      if(result){
+        dispatch(removeArticle(_id))
+        swal({
+          title: "مقاله با موفقیت حذف شد",
+          icon: 'success',
+          buttons: "حله"
+        })
+      }
+    })
+  }
+
   return (
     <div className="articles__item">
       <img
@@ -33,7 +55,7 @@ export default function ArticleBox({title, category, views, desc}) {
             </div>
           </div>
           <div className="articles__btns">
-            <button className="op-btn btn btn-danger btn-lg">حذف</button>
+            <button className="op-btn btn btn-danger btn-lg" onClick={removeArticleHandler}>حذف</button>
             <button className="op-btn btn btn-info btn-lg">ویرایش</button>
           </div>
         </div>

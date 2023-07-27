@@ -9,6 +9,17 @@ export const getCoursesFromServer = createAsyncThunk(
   }
 );
 
+export const removeCourse = createAsyncThunk(
+  "courses/removeCourse",
+  async (id) => {
+    return fetch(`https://redux-cms.iran.liara.run/api/courses/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
+
 export const coursesSlice = createSlice({
   name: "courses",
   initialState: [],
@@ -18,6 +29,12 @@ export const coursesSlice = createSlice({
       getCoursesFromServer.fulfilled,
       (state, action) => action.payload
     );
+    builder.addCase(removeCourse.fulfilled, (state, action) => {
+      const newCourses = [...state].filter(
+        (course) => course._id !== action.payload.id
+      );
+      return newCourses;
+    });
   },
 });
 
