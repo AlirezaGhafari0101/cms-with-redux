@@ -687,6 +687,14 @@ body {
   color: var(--light);
 }
 
+/* swal */
+
+.swal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* End Dark Mode */
 
 @media only screen and (max-width: 75em) {
