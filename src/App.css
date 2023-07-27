@@ -400,6 +400,10 @@ body {
   animation: moveToDown 0.4s ease-in-out;
 }
 
+.show-modal {
+  display: block;
+}
+
 /* Header */
 .header {
   display: flex;
